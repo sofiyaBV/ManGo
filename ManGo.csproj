@@ -7,4 +7,31 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Presentation\Fonts\MooLahLah\MooLahLah-Regular.ttf" />
+    <None Remove="Presentation\Image\conservation.png" />
+    <None Remove="Presentation\Image\List.png" />
+    <None Remove="Presentation\Image\list2.png" />
+    <None Remove="Presentation\Image\star-web.png" />
+    <None Remove="Presentation\Image\User.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Api\" />
+    <Folder Include="Data\Database\Tebles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Presentation\Fonts\MooLahLah\MooLahLah-Regular.ttf" />
+    <Resource Include="Presentation\Image\conservation.png" />
+    <Resource Include="Presentation\Image\List.png" />
+    <Resource Include="Presentation\Image\list2.png" />
+    <Resource Include="Presentation\Image\star-web.png" />
+    <Resource Include="Presentation\Image\User.png" />
+  </ItemGroup>
+
 </Project>
