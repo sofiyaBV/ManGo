@@ -48,25 +48,34 @@ namespace ManGo.Data.Api
             IEnumerable<HtmlNode> cardNodes = doc.DocumentNode.SelectNodes(".//div[@class='card shadow mb-4 w-36 snap-start']");
             if (cardNodes != null)
             {
+
                 foreach (var cardNode in cardNodes)
                 {
-                    string hrefValue = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("href", "");
-                    string title = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("title", "");
+                    HtmlNode linkNode = cardNode.SelectSingleNode(".//a[@class='text-surface-900-50-token']");
 
-                    string imageUrl = cardNode.SelectSingleNode(".//img[@class='rounded-container-token preload']")?.GetAttributeValue("src", "");
-
-                    if (!string.IsNullOrWhiteSpace(imageUrl) && !string.IsNullOrWhiteSpace(hrefValue))
+                    if (linkNode != null)
                     {
+                        string href = linkNode.GetAttributeValue("href", "");
+                        string text = linkNode.InnerText;
 
-                        Uri fullUri;
-                        if (Uri.TryCreate(new Uri(baseUrl), imageUrl, out fullUri))
+                        string hrefValue = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("href", "");
+                        string title = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("title", "");
+                        string imageUrl = cardNode.SelectSingleNode(".//img[@class='rounded-container-token preload']")?.GetAttributeValue("src", "");
+
+                        if (!string.IsNullOrWhiteSpace(imageUrl) && !string.IsNullOrWhiteSpace(hrefValue))
                         {
-                            imagesData.Add(new ImageSourse
+                            Uri fullUri;
+                            if (Uri.TryCreate(new Uri(baseUrl), imageUrl, out fullUri))
                             {
-                                ImageURL = fullUri.AbsoluteUri,
-                                Text = title,
-                                Href = hrefValue
-                            });
+                                imagesData.Add(new ImageSourse
+                                {
+                                    ImageURL = fullUri.AbsoluteUri,
+                                    Text = title,
+                                    Href = hrefValue,
+                                    Hrefchapter = href,
+                                    Chapert = text
+                                });
+                            }
                         }
                     }
                 }
@@ -78,7 +87,6 @@ namespace ManGo.Data.Api
         /// Асинхронный метод для загрузки данных изображения для раздела "Manga Day" с веб-страницы.
         /// </summary>
         /// <returns>Объект ImageSourse, представляющий изображение и связанные с ним данные.</returns>
-
         public async Task<ImageSourse> Loaded_MangaDay()
         {
             string html = await DownloadHtmlAsync(baseUrl);
@@ -97,7 +105,7 @@ namespace ManGo.Data.Api
                         Uri fullUri;
                         if (Uri.TryCreate(new Uri(baseUrl), imageUrl, out fullUri))
                         {
-                            imageSourse = new ImageSourse( fullUri.AbsoluteUri,title,hrefValue);
+                          //  imageSourse = new ImageSourse( fullUri.AbsoluteUri,title,hrefValue);
                         }
                     }
                 }

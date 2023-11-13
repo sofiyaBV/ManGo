@@ -5,23 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:localSP="clr-namespace:ManGo.Presentation"
         mc:Ignorable="d"
-        Title="HomeWindow" MinHeight="350" MinWidth="700" Height="450" Width="800" Loaded="Home_Loaded" >
+        Title="ManGo" MinHeight="350" MinWidth="700" Height="450" Width="800" Loaded="Home_Loaded" Background="#FFFAF1E4" Icon="/Presentation/Image/m.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0.4*"/>
-        </Grid.ColumnDefinitions>
-
-        <localSP:MySPUserControl Grid.ColumnSpan="2"/>
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
+        <localSP:MySPUserControl />
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -49,6 +41,7 @@
                             <WrapPanel Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -65,6 +58,8 @@
                             <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120"  FontSize="12"/>
+                                <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
+
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -81,6 +76,8 @@
                             <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120"  FontSize="12" />
+                                <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
+
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -97,11 +94,12 @@
                             <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120"  FontSize="12" />
+                                <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center" />
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Label Grid.Row="0" Grid.Column="1" Content="Манга дня"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,0,0,0" FontSize="15" FontWeight="Bold"/>
+                <Label Grid.Row="0" Grid.Column="1" Content="Манга дня"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,0,0,0" FontSize="15" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold"/>
                 <StackPanel x:Name="SP_mangs_dey" MouseEnter="LV_popular_manga_MouseEnter" MouseDown="StackPanel_MouseDown" Grid.Column="1" Grid.Row="1" >
                     <Image Source="{Binding ImageURL}" Height="170"/>
                     <TextBlock Text="{Binding Text}"  Width="100"/>
