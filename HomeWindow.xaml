@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:ManGo" 
         xmlns:localSP="clr-namespace:ManGo.Presentation"
         mc:Ignorable="d"
         Title="HomeWindow" MinHeight="350" MinWidth="700" Height="450" Width="800" Loaded="Home_Loaded" >
@@ -23,9 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <localSP:MySPUserControl Grid.ColumnSpan="2"/>
-
-        <!-- Первый блок -->
-        <ScrollViewer Grid.Row="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -37,6 +33,10 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Content="Оновлення топ манги" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
                 <ListView Grid.Row="1" x:Name="LV_top_manga_update">
                     <ListView.ItemsPanel>
@@ -101,54 +101,12 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
+                <Label Grid.Row="0" Grid.Column="1" Content="Манга дня"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,0,0,0" FontSize="15" FontWeight="Bold"/>
+                <StackPanel x:Name="SP_mangs_dey" MouseEnter="LV_popular_manga_MouseEnter" MouseDown="StackPanel_MouseDown" Grid.Column="1" Grid.Row="1" >
+                    <Image Source="{Binding ImageURL}" Height="170"/>
+                    <TextBlock Text="{Binding Text}"  Width="100"/>
+                </StackPanel>
             </Grid>
-            
         </ScrollViewer>
-        <StackPanel x:Name="SP_mangs_dey" MouseEnter="LV_popular_manga_MouseEnter" MouseDown="StackPanel_MouseDown" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-            <Image Source="{Binding ImageURL}" Width="150" Height="150"/>
-            <TextBlock Text="{Binding Text}"  Width="100"/>
-        </StackPanel>
-        <StackPanel x:Name="SP_New_chapters" Grid.Row="3" Grid.RowSpan="2" Margin="20,20,24,20" Grid.Column="1">
-            <Label Content="Нові глави"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
-            <ListView x:Name="LV_new_chapters"  >
-            <ListView.ItemTemplate>
-                <DataTemplate x:Name="SingNewItem">
-                    <StackPanel Width="100" MouseEnter="LV_popular_manga_MouseEnter" MouseDown="StackPanel_MouseDown">
-                        <Image Source="{Binding ImageURL}" Width="150" Height="150"/>
-                        <TextBlock Text="{Binding Text}"  Width="100"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        </StackPanel>
     </Grid>
 </Window>
-<!--<Window.Resources>
-        <FontFamily x:Key="FontMoo">/ManGo;component/Presentation/Fonts/MooLahLah/MooLahLah-Regular.ttf#Moo Lah Lah</FontFamily>
-    </Window.Resources>
-    <Grid Background="#FFFAF1E4">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel Background="#FF9EB384" Orientation="Horizontal">
-            <TextBlock Text="ManGo" FontFamily="{DynamicResource FontMoo}" FontSize="40" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" />
-            <TextBox x:Name="tb_search" Text="Поиск" Background="#FFD9D9D9" Margin="20 0 20 0" Padding="10,3,0,0" UseLayoutRounding="True" CaretBrush="#FF435334" SelectionBrush="#FF435334" Width="{Binding ElementName=column_search, Path=ActualWidth}" Height="30" FontSize="15" />
-            <Button Width="30" Height="30" Click="Button_Click" BorderBrush="#FF9EB384" >
-                <Button.Background>
-                    <ImageBrush ImageSource="/List.png"/>
-                </Button.Background>
-                <Button.ContextMenu>
-                    <ContextMenu Background="#FF9EB384">
-                        <MenuItem Header="Каталог" />
-                        <MenuItem Header="Жанры" />
-                        <MenuItem Header="Рекомендации" />
-                        <MenuItem Header="Топ 100" />
-                    </ContextMenu>
-                </Button.ContextMenu>
-            </Button>
-            <Image x:Name="I_conservation" Width="30" Height="30" Source="/Presentation/Image/conservation.png" Margin="20,0,15,0" />
-            <Image x:Name="I_User" Width="30" Height="30" Source="/Presentation/Image/User.png"  />
-        </StackPanel>
-    </Grid>-->

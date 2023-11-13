@@ -1,13 +1,8 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ManGo.Data.Api
 {
@@ -39,43 +34,75 @@ namespace ManGo.Data.Api
                 }
             }
         }
+        /// <summary>
+        /// Метод для загрузки данных изображений,названия,ссылки с веб-страницы и формирования списка объектов ImageSourse.
+        /// Для загрузки категорий : обновления топ манги, Горячие новинки, Популярное, Недавно на сайте
+        /// </summary>
+        /// <returns>Список объектов ImageSourse, представляющих изображения с веб-страницы.</returns>
         public async Task<List<ImageSourse>> Loaded_TopManga()
         {
             string html = await DownloadHtmlAsync(baseUrl);
             doc.LoadHtml(html);
             List<ImageSourse> imagesData = new List<ImageSourse>();
 
-                    IEnumerable<HtmlNode> cardNodes = doc.DocumentNode.SelectNodes(".//div[@class='card shadow mb-4 w-36 snap-start']");
-                    if (cardNodes != null)
+            IEnumerable<HtmlNode> cardNodes = doc.DocumentNode.SelectNodes(".//div[@class='card shadow mb-4 w-36 snap-start']");
+            if (cardNodes != null)
+            {
+                foreach (var cardNode in cardNodes)
+                {
+                    string hrefValue = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("href", "");
+                    string title = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("title", "");
+
+                    string imageUrl = cardNode.SelectSingleNode(".//img[@class='rounded-container-token preload']")?.GetAttributeValue("src", "");
+
+                    if (!string.IsNullOrWhiteSpace(imageUrl) && !string.IsNullOrWhiteSpace(hrefValue))
                     {
-                        foreach (var cardNode in cardNodes)
+
+                        Uri fullUri;
+                        if (Uri.TryCreate(new Uri(baseUrl), imageUrl, out fullUri))
                         {
-                            string hrefValue = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("href", "");
-                            string title = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("title", "");
-
-                              string imageUrl = cardNode.SelectSingleNode(".//img[@class='rounded-container-token preload']")?.GetAttributeValue("src", "");
-
-                            if (!string.IsNullOrWhiteSpace(imageUrl) && !string.IsNullOrWhiteSpace(hrefValue))
+                            imagesData.Add(new ImageSourse
                             {
-
-                                Uri fullUri;
-                                if (Uri.TryCreate(new Uri(baseUrl), imageUrl, out fullUri))
-                                {
-                                    string decodedTitle = WebUtility.HtmlDecode(title);
-                                    imagesData.Add(new ImageSourse
-                                    {
-                                        ImageURL = fullUri.AbsoluteUri,
-                                        Text = decodedTitle,
-                                        Href = hrefValue
-                                    });
-                                }
-                            }
+                                ImageURL = fullUri.AbsoluteUri,
+                                Text = title,
+                                Href = hrefValue
+                            });
                         }
                     }
-                
+                }
+            }
+
             return imagesData;
         }
+        /// <summary>
+        /// Асинхронный метод для загрузки данных изображения для раздела "Manga Day" с веб-страницы.
+        /// </summary>
+        /// <returns>Объект ImageSourse, представляющий изображение и связанные с ним данные.</returns>
 
-
+        public async Task<ImageSourse> Loaded_MangaDay()
+        {
+            string html = await DownloadHtmlAsync(baseUrl);
+            doc.LoadHtml(html);
+            ImageSourse imageSourse = new ImageSourse();
+            IEnumerable<HtmlNode> cardNodes = doc.DocumentNode.SelectNodes(".//div[@class='card shadow-lg mb-4 mx-auto max-w-sm']");
+            if (cardNodes != null)
+            {
+                foreach (var cardNode in cardNodes)
+                {
+                    string hrefValue = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("href", "");
+                    string title = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("title", "");
+                    string imageUrl = cardNode.SelectSingleNode(".//img[@class='rounded-container-token preload w-full']")?.GetAttributeValue("src", "");
+                    if (!string.IsNullOrWhiteSpace(imageUrl) && !string.IsNullOrWhiteSpace(hrefValue))
+                    {
+                        Uri fullUri;
+                        if (Uri.TryCreate(new Uri(baseUrl), imageUrl, out fullUri))
+                        {
+                            imageSourse = new ImageSourse( fullUri.AbsoluteUri,title,hrefValue);
+                        }
+                    }
+                }
+            }
+            return imageSourse;
+        }
     }
 }

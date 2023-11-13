@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ManGo.Presentation
 {
@@ -32,12 +20,7 @@ namespace ManGo.Presentation
         {
             if (e.NewSize.Width != previousWidth)
             {
-                double newWidth;
-                if (I_User.Visibility != Visibility.Collapsed)
-                { newWidth  = e.NewSize.Width - 320; }
-                else { newWidth  = e.NewSize.Width - 410; }
-
-                tb_search.Width = newWidth;
+                tb_search.Width =  e.NewSize.Width - 320; ;
                 previousWidth = e.NewSize.Width;
 
             }
