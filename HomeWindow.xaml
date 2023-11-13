@@ -7,27 +7,121 @@
         xmlns:local="clr-namespace:ManGo" 
         xmlns:localSP="clr-namespace:ManGo.Presentation"
         mc:Ignorable="d"
-        Title="HomeWindow" Height="450" Width="800" >
+        Title="HomeWindow" MinHeight="350" MinWidth="700" Height="450" Width="800" Loaded="Home_Loaded" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.4*"/>
+        </Grid.ColumnDefinitions>
 
-        <localSP:MySPUserControl/>
+        <localSP:MySPUserControl Grid.ColumnSpan="2"/>
 
         <!-- Первый блок -->
-        <Label Content="Обновления популярной манги" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="1" />
-        <ListView x:Name="LV_popular_manga" Grid.Row="2" Margin="20,20,24,20">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="14"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-        </ListView>
+        <ScrollViewer Grid.Row="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Оновлення топ манги" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
+                <ListView Grid.Row="1" x:Name="LV_top_manga_update">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="20"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                                <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Text}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Grid.Row="2" Content="Гарячі новинки"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
+                <ListView Grid.Row="3" x:Name="LV_hot_new_items">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="20"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                                <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Text}" Width="120"  FontSize="12"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Grid.Row="4" Content="Популярне" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0" />
+                <ListView Grid.Row="5" x:Name="LV_popular">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="20"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                                <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Text}" Width="120"  FontSize="12" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Grid.Row="6" Content="Нещодавно на сайті"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
+                <ListView Grid.Row="7" x:Name="LV_recently_on_the_site">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="20"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                                <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Text}" Width="120"  FontSize="12" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
+            </Grid>
+            
+        </ScrollViewer>
+        <StackPanel x:Name="SP_mangs_dey" MouseEnter="LV_popular_manga_MouseEnter" MouseDown="StackPanel_MouseDown" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+            <Image Source="{Binding ImageURL}" Width="150" Height="150"/>
+            <TextBlock Text="{Binding Text}"  Width="100"/>
+        </StackPanel>
+        <StackPanel x:Name="SP_New_chapters" Grid.Row="3" Grid.RowSpan="2" Margin="20,20,24,20" Grid.Column="1">
+            <Label Content="Нові глави"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
+            <ListView x:Name="LV_new_chapters"  >
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="SingNewItem">
+                    <StackPanel Width="100" MouseEnter="LV_popular_manga_MouseEnter" MouseDown="StackPanel_MouseDown">
+                        <Image Source="{Binding ImageURL}" Width="150" Height="150"/>
+                        <TextBlock Text="{Binding Text}"  Width="100"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackPanel>
     </Grid>
 </Window>
 <!--<Window.Resources>
