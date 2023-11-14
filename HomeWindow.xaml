@@ -38,7 +38,7 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <WrapPanel Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                            <WrapPanel Width="120" MouseEnter="SP_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
@@ -55,7 +55,7 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                            <WrapPanel  Width="120" MouseEnter="SP_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120"  FontSize="12"/>
                                 <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
@@ -73,7 +73,7 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                            <WrapPanel  Width="120" MouseEnter="SP_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120"  FontSize="12" />
                                 <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center"/>
@@ -91,7 +91,7 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <WrapPanel  Width="120" MouseEnter="SP_top_manga_update_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
+                            <WrapPanel  Width="120" MouseEnter="SP_MouseEnter" MouseDown="StackPanel_MouseDown" Orientation="Horizontal">
                                 <Image Source="{Binding ImageURL}" Height="160" VerticalAlignment="Top"/>
                                 <TextBlock Text="{Binding Text}" Width="120"  FontSize="12" />
                                 <TextBlock Text="{Binding Chapert}" Width="120" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center" />
@@ -100,10 +100,11 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Label Grid.Row="0" Grid.Column="1" Content="Манга дня"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5,0,0,0" FontSize="15" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold"/>
-                <StackPanel x:Name="SP_mangs_dey" MouseEnter="LV_popular_manga_MouseEnter" MouseDown="StackPanel_MouseDown" Grid.Column="1" Grid.Row="1" >
+                <WrapPanel x:Name="SP_mangs_dey"  MouseEnter="SP_MouseEnter" MouseDown="StackPanel_MouseDown" Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Margin="55,0,0,0"  >
                     <Image Source="{Binding ImageURL}" Height="170"/>
                     <TextBlock Text="{Binding Text}"  Width="100"/>
-                </StackPanel>
+                    <TextBlock Text="{Binding Chapert}" Width="100" VerticalAlignment="Bottom" FontSize="12" HorizontalAlignment="Center" />
+                </WrapPanel>
             </Grid>
         </ScrollViewer>
     </Grid>

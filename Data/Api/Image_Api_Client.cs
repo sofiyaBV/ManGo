@@ -98,14 +98,28 @@ namespace ManGo.Data.Api
                 foreach (var cardNode in cardNodes)
                 {
                     string hrefValue = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("href", "");
-                    string title = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("title", "");
+
                     string imageUrl = cardNode.SelectSingleNode(".//img[@class='rounded-container-token preload w-full']")?.GetAttributeValue("src", "");
+
+                    // Достаем название
+                    string title = cardNode.SelectSingleNode(".//a")?.GetAttributeValue("title", "");
+
+                    // Достаем ссылку
+                  
+
+                    // Достаем количество глав
+                    string chapterCountText = cardNode.SelectSingleNode(".//a[@class='text-surface-900-50-token']")?.InnerText;
+                    string chapterCount = chapterCountText?.Split(' ')[0]; // Получаем число из строки "101.5 Глава"
+
+                    // Достаем ссылку на последнюю главу
+                    string lastChapterLink = cardNode.SelectSingleNode(".//a[@class='text-surface-900-50-token']")?.GetAttributeValue("href", "");
+
                     if (!string.IsNullOrWhiteSpace(imageUrl) && !string.IsNullOrWhiteSpace(hrefValue))
                     {
                         Uri fullUri;
                         if (Uri.TryCreate(new Uri(baseUrl), imageUrl, out fullUri))
                         {
-                          //  imageSourse = new ImageSourse( fullUri.AbsoluteUri,title,hrefValue);
+                           imageSourse = new ImageSourse( fullUri.AbsoluteUri,title,hrefValue, lastChapterLink, chapterCount);
                         }
                     }
                 }
